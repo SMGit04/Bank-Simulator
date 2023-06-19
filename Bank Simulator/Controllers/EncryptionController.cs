@@ -11,19 +11,28 @@ namespace Bank_Simulator.Controllers
     public class EncryptionController : ControllerBase
     {
         private readonly IRsaHelper _rsaHelper;
+        public EncryptionController(IRsaHelper rsaHelper)
+        {
+            _rsaHelper = rsaHelper;
+        }
 
         [HttpPost]
         public bool Post([FromBody] CardInformationModel user)
         {
             try
             {
-                var clearTextCvv = _rsaHelper.Decrypt(user.cvv);
+                string encryptedCvv = _rsaHelper.Encrypt(user.cvv);         // TODO: Remove this line after demo
+
+                Console.WriteLine(encryptedCvv);                            // TODO: Remove this line after demo
+
+
+                string clearTextCvv = _rsaHelper.Decrypt(encryptedCvv);
                 return user.cvv.Equals("988", StringComparison.Ordinal);
             }
             catch (Exception)
             {
-                // Log ex 
-                return false;
+                
+               return false;
             }
         }
     }

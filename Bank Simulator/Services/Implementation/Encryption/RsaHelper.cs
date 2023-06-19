@@ -4,10 +4,11 @@ using Org.BouncyCastle.Security;
 using System.Security.Cryptography;
 using Org.BouncyCastle.OpenSsl;
 using System.Text;
+using Bank_Simulator.Services.Interfaces.Encryption;
 
 namespace Bank_Simulator.Services.Implementation.Encryption
 {
-    public class RsaHelper
+    public class RsaHelper : IRsaHelper
     {
         private readonly RSACryptoServiceProvider _privateKey;
         private readonly RSACryptoServiceProvider _publicKey;
