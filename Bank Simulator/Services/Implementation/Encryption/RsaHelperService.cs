@@ -8,12 +8,12 @@ using Bank_Simulator.Services.Interfaces.Encryption;
 
 namespace Bank_Simulator.Services.Implementation.Encryption
 {
-    public class RsaHelper : IRsaHelper
+    public class RsaHelperService : IRsaHelperService
     {
         private readonly RSACryptoServiceProvider _privateKey;
         private readonly RSACryptoServiceProvider _publicKey;
 
-        public RsaHelper()
+        public RsaHelperService()
         {
             string publicKeyFilePath = @".\keys\publicKey.pem";
             string privateKeyFilePath = @".\keys\privateKey.pem";

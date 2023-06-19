@@ -13,7 +13,7 @@ namespace Bank_Simulator.Orchestration.Implementation
             this.cardValidatorService = cardValidatorService;
         }
 
-        public CardResult CardNumberIsValid(string cardNumber)
+        public CardResultModel CardNumberIsValid(string cardNumber)
         {
             return cardValidatorService.CardNumberIsValid(cardNumber);
         }

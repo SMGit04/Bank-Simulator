@@ -1,11 +1,11 @@
 ﻿namespace Bank_Simulator.Models
 {
-    public class CardResult
+    public class CardResultModel
     {
         public bool IsValid { get; set; }
         public string? ResponseMessage { get; set; }
 
-        public CardResult(bool isValid, string responseMessage = "")
+        public CardResultModel(bool isValid, string responseMessage = "")
         {
             
             IsValid = isValid;

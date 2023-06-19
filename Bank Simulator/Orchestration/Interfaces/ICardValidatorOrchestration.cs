@@ -4,6 +4,6 @@ namespace Bank_Simulator.Orchestration.Interfaces
 {
     public interface ICardValidatorOrchestration
     {
-        public CardResult CardNumberIsValid(string cardNumber);
+        public CardResultModel CardNumberIsValid(string cardNumber);
     }
 }

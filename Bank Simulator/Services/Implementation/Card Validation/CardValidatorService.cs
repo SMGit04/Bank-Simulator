@@ -18,15 +18,15 @@ namespace Bank_Simulator.Services.Implementation
         public readonly bool CardResults = new bool();
         private readonly Dictionary<string, bool> CardDatabase = new Dictionary<string, bool>();
 
-        public CardResult CardNumberIsValid(string cardNumber)
+        public CardResultModel CardNumberIsValid(string cardNumber)
         {
             if (LuhnAlgorithm(cardNumber))
             {
-                return new CardResult(true);
+                return new CardResultModel(true);
             }
             else {
                 
-                return new CardResult(false, ErrorCodesServices.GetErrorCode(ErrorCodes.InvalidCardNumber));
+                return new CardResultModel(false, ErrorCodesServices.GetErrorCode(ErrorCodes.InvalidCardNumber));
                  }
         }
 

@@ -10,8 +10,8 @@ namespace Bank_Simulator.Controllers
     [ApiController]
     public class EncryptionController : ControllerBase
     {
-        private readonly IRsaHelper _rsaHelper;
-        public EncryptionController(IRsaHelper rsaHelper)
+        private readonly IRsaHelperService _rsaHelper;
+        public EncryptionController(IRsaHelperService rsaHelper)
         {
             _rsaHelper = rsaHelper;
         }
@@ -21,13 +21,15 @@ namespace Bank_Simulator.Controllers
         {
             try
             {
-                string encryptedCvv = _rsaHelper.Encrypt(user.cvv);         // TODO: Remove this line after demo
+                string encryptedCvv = _rsaHelper.Encrypt(user.Cvv);         // TODO: Remove this line after demo
 
                 Console.WriteLine(encryptedCvv);                            // TODO: Remove this line after demo
 
-
                 string clearTextCvv = _rsaHelper.Decrypt(encryptedCvv);
-                return user.cvv.Equals("988", StringComparison.Ordinal);
+
+                Console.WriteLine(clearTextCvv);                            // TODO: Remove this line after demo
+
+                return clearTextCvv.Equals("988", StringComparison.Ordinal);// TODO: Get CVV from database and compare with user.Cvv
             }
             catch (Exception)
             {
