@@ -4,6 +4,6 @@ namespace Bank_Simulator.Services.Interfaces
 {
     public interface ICardValidatorService
     {
-        public CardResult CardNumberIsValid(string cardNumber);
+        public CardResultModel CardNumberIsValid(string cardNumber);
     }
 }
