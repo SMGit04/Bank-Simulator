@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<ICardValidatorService, CardValidatorService>();
 builder.Services.AddSingleton<IErrorCodesServices, ErrorCodesService>();
-builder.Services.AddSingleton<IRsaHelperService, RsaHelperService>();
+builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
+builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();
 
 builder.Services.AddSingleton<ICardValidatorOrchestration, CardValidatorOrchestration>();
 

@@ -10,8 +10,8 @@ namespace Bank_Simulator.Controllers
     [ApiController]
     public class EncryptionController : ControllerBase
     {
-        private readonly IRsaHelperService _rsaHelper;
-        public EncryptionController(IRsaHelperService rsaHelper)
+        private readonly IEncrptionService _rsaHelper;
+        public EncryptionController(IEncrptionService rsaHelper)
         {
             _rsaHelper = rsaHelper;
         }
