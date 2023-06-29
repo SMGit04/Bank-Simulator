@@ -1,5 +1,4 @@
 ﻿using Bank_Simulator.Models;
-using Bank_Simulator.Services.Implementation.Encryption;
 using Bank_Simulator.Services.Interfaces.Encryption;
 using Microsoft.AspNetCore.Mvc;
 

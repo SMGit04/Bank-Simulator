@@ -1,9 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Security;
-using System.Security.Cryptography;
-using Org.BouncyCastle.OpenSsl;
-using System.Text;
+﻿using System.Text;
 using Bank_Simulator.Services.Interfaces.Encryption;
 
 namespace Bank_Simulator.Services.Implementation.Encryption
