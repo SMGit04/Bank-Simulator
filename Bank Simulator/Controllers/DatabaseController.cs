@@ -27,7 +27,6 @@ namespace Bank_Simulator.Controllers
         [HttpGet("api/GetAllUsers")]
         public async Task<ActionResult<List<DatabaseModels>>> GetAllUsers()
         {
-            // var users = await _context.Users.ToListAsync();
             return Ok(await _context.DatabaseModels.ToListAsync());
         }
 

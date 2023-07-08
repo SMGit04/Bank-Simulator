@@ -6,6 +6,7 @@ namespace Bank_Simulator.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+
         [Key]
         public string IDNumber { get; set; } 
         public string CardNumber { get; set; }

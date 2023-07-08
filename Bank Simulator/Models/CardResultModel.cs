@@ -7,7 +7,6 @@
 
         public CardResultModel(bool isValid, string responseMessage = "")
         {
-            
             IsValid = isValid;
             ResponseMessage = responseMessage;
         }
