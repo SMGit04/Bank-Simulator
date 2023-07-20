@@ -3,8 +3,6 @@
     public enum ErrorCodes
     {
         InvalidCardNumber,
-        UnknowBiometrics,
-        TransacationDeclined,
         InsufficientAmount
     }
 }

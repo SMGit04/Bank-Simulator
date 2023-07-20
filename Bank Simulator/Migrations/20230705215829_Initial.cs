@@ -20,7 +20,7 @@ namespace Bank_Simulator.Migrations
                     CardNumber = table.Column<string>(type: "TEXT", nullable: false),
                     AccountNumber = table.Column<string>(type: "TEXT", nullable: false),
                     ExpiryDate = table.Column<string>(type: "TEXT", nullable: false),
-                    AccountBalance = table.Column<string>(type: "TEXT", nullable: false),
+                    AccountBalance = table.Column<string>(type: "INTEGER", nullable: false),
                     CVV = table.Column<string>(type: "TEXT", nullable: false),
                     PIN = table.Column<string>(type: "TEXT", nullable: false)
                 },

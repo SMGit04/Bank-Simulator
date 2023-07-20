@@ -2,8 +2,10 @@ using Bank_Simulator.Database;
 using Bank_Simulator.Orchestration.Implementation;
 using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Implementation;
+using Bank_Simulator.Services.Implementation.Card_Validation;
 using Bank_Simulator.Services.Implementation.Encryption;
 using Bank_Simulator.Services.Interfaces;
+using Bank_Simulator.Services.Interfaces.Card_Validation;
 using Bank_Simulator.Services.Interfaces.Encryption;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<ICardValidatorService, CardValidatorService>();
+builder.Services.AddTransient<ITransactionChecksService, TransactionChecksService>();
 builder.Services.AddSingleton<IErrorCodesServices, ErrorCodesService>();
 builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
 builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();

@@ -2,12 +2,11 @@
 using Bank_Simulator.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace Bank_Simulator.Controllers
 {
     [ApiController]
-    public class DatabaseController : Controller
+    public class DatabaseController : ControllerBase
     {
         private readonly DataContext _context;
 
