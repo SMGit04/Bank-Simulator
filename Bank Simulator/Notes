@@ -2,6 +2,7 @@
          The "Contract" I sigh with the client, in this case, the POS machine is whether the transaction is approved on not
          Based on the information that the POS machine sends me, I will either approve or decline the transaction
          I should should check if the user has enough money in his account to make the transaction among other things
+
          We should check the CVV number, the PIN number, the expiry date, the card number, the account number, the account balance against the database
          - If all the information is correct, we should approve the transaction
        

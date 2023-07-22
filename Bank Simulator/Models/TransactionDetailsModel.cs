@@ -11,7 +11,6 @@ namespace Bank_Simulator.Models
         public string CardNumber { get; set; }
         public string AccountNumber { get; set; }
         public string ExpiryDate { get; set; }
-        public string PhoneIdentifier { get; set; }
         public int Amount { get; set; }
         public string CVV { get; set; }
         public string PIN { get; set; }

@@ -1,7 +1,8 @@
 ﻿using Bank_Simulator.Database;
 using Bank_Simulator.Models;
-using Bank_Simulator.Services.Interfaces.Card_Validation;
+using Bank_Simulator.Services.Interfaces;
 using Bank_Simulator.Services.Interfaces.Encryption;
+using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank_Simulator.Services.Implementation.Card_Validation
@@ -10,21 +11,32 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
     {
         private readonly IEncrptionService _rsaHelper;
         private readonly DataContext _context;
-        public TransactionChecksService(IEncrptionService rsaHelper, DataContext dataContext)
+        private readonly IErrorCodesServices _ErrorCodes;
+        public TransactionChecksService(IEncrptionService rsaHelper, DataContext dataContext, IErrorCodesServices errorCodesServices)
         {
             _rsaHelper = rsaHelper;
             _context = dataContext;
+            _ErrorCodes = errorCodesServices;
         }
+
 
         public bool UserHasEnoughMoney([FromBody] TransactionDetailsModel user)
         {
             DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
             return databaseModel != null && databaseModel.AccountBalance >= user.Amount;
+
+            //if (databaseModel != null && databaseModel.AccountBalance >= user.Amount)
+            //{
+            //    return new TransactionResultModel("Approved");
+            //}
+            //else
+            //    return new TransactionResultModel("Declined", _ErrorCodes.GetErrorCode(Enums.ErrorCodes.InsufficientAmount));
         }
 
         public int DeductAmountFromUserAccount([FromBody] TransactionDetailsModel user)
         {
             DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
+
             if (databaseModel != null && UserHasEnoughMoney(user))
             {
                 databaseModel.AccountBalance -= user.Amount;
@@ -34,7 +46,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             return -1;
         }
 
-        public bool DecryptCvvNumber([FromBody] TransactionDetailsModel user)
+        public bool ValidateCvvNumber([FromBody] TransactionDetailsModel user)
         {
             try
             {

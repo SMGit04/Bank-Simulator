@@ -23,6 +23,7 @@ namespace Bank_Simulator.Services.Implementation
             if (LuhnAlgorithm(cardNumber))
             {
                 return new CardResultModel(true);
+
             }
             else {
                 
