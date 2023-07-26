@@ -1,17 +1,16 @@
 ﻿using Bank_Simulator.Models;
-using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank_Simulator.Controllers
 {
-    // [Produces("application/json")]
+    [Produces("application/json")]
     [ApiController]
     public class TransactionStatusController : ControllerBase
     {
      
         private readonly ITransactionStatusService transactionStatusService;
-        public TransactionStatusController(ICardValidatorOrchestration cardValidatorOrchestration, ITransactionStatusService transactionStatus)
+        public TransactionStatusController(ITransactionStatusService transactionStatus)
         {
             
             this.transactionStatusService = transactionStatus;
