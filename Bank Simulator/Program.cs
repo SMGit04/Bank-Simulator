@@ -1,4 +1,5 @@
 using Bank_Simulator.Database;
+using Bank_Simulator.Remote;
 using Bank_Simulator.Services.Implementation;
 using Bank_Simulator.Services.Implementation.Card_Validation;
 using Bank_Simulator.Services.Implementation.Encryption;
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -38,5 +40,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<NotificationHub>("/notoficationhub");
 
 app.Run();
