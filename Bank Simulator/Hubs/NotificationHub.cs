@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Bank_Simulator.Services.Interfaces.Transactions;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Bank_Simulator.Remote;
 
-public class NotificationHub : Hub
+public class NotificationHub : Hub<INotificationHub>
 {
-    public void SendNotification(string message)
-    {
-        
-        Clients.All.SendAsync("broadcastMessage", message);
 
+    public async Task SendNotification(string message)
+    {
+        await Clients.All.SendNotification(message);
     }
 
-    // TODO: Add notification trigger:
+    //public void sendnotification(string message)
+    //{
 
-    /*var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-    context.Clients.All.broadcastMessage("Your message here");
-    */
+    //    Clients.All.SendAsync("broadcastmessage", message);
+
+    //}
 }
 
 
