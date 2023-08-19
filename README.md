@@ -6,4 +6,4 @@ The API receives a payload from a Java application which simulates a Point of Sa
 The API has another endpointt "NotificationHub" which will be used to send notificatio to the user Android application
 The API communicates with a front end facing Java application which demonstrates the bank application a user would have.
 
-The API is still being continously being developed :)
+The API is still being continously developed :)
