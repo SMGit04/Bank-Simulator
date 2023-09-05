@@ -5,6 +5,6 @@ namespace Bank_Simulator.Services.Interfaces.Transactions
 {
     public interface ITransactionStatusService
     {
-        public TransactionResultModel TransactionStatus([FromBody] TransactionDetailsModel user);
+        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user);
     }
 }

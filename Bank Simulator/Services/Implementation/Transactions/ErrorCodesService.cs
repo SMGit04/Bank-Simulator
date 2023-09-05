@@ -1,5 +1,5 @@
 ﻿using Bank_Simulator.Enums;
-using Bank_Simulator.Services.Interfaces;
+using Bank_Simulator.Services.Interfaces.Transactions;
 using System.Xml.Schema;
 
 namespace Bank_Simulator.Services.Implementation

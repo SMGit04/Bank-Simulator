@@ -13,15 +13,15 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _transactionChecksService = transactionChecksService;
         }
 
-        public TransactionResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
+        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
         {
             if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
             {
-                return new TransactionResultModel("Approved");
+                return new ResultModel("Approved");
             }
             else
             {
-                return new TransactionResultModel("Declined");
+                return new ResultModel("Declined");
             }
 
         }

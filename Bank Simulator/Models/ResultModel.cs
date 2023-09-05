@@ -1,10 +1,10 @@
 ﻿namespace Bank_Simulator.Models
 {
-    public class TransactionResultModel
+    public class ResultModel
     {
         public string Status { get; set; } 
 
-        public TransactionResultModel(string status)
+        public ResultModel(string status)
         {
             Status = status;
         }

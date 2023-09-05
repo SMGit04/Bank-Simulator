@@ -1,6 +1,6 @@
 ﻿using Bank_Simulator.Enums;
 
-namespace Bank_Simulator.Services.Interfaces
+namespace Bank_Simulator.Services.Interfaces.Transactions
 {
     public interface IErrorCodesServices
     {

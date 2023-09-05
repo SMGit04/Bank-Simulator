@@ -33,5 +33,4 @@ namespace Bank_Simulator.Controllers
         }
     }
 
-    // TODO: Add SignalR endpoint
 }
