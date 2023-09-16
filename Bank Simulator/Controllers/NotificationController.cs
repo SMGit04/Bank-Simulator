@@ -1,4 +1,4 @@
-﻿using Bank_Simulator.Remote;
+﻿
 using Bank_Simulator.Services.Interfaces.Transactions;
 using FirebaseAdmin;
 using Microsoft.AspNetCore.Mvc;
@@ -9,19 +9,19 @@ namespace Bank_Simulator.Controllers
     public class NotificationController : ControllerBase
     {
 
-        private readonly INotificationService _hubContext;
-        public NotificationController(INotificationService hubContext)
+        private readonly INotificationService _notificationService;
+        public NotificationController(INotificationService notificationService)
         {
-            _hubContext = hubContext;
+            _notificationService = notificationService;
         }
 
 
         [HttpPost("api/notification")]
-        public IActionResult SendNotifications(string message)
+        public IActionResult SendNotifications()
         {
-            // TODO: Implement message send logic
-            _hubContext.SendNotification();
-            return Ok(new { Status = "Sent", Message = message });
+         
+            _notificationService.SendNotification();
+            return Ok(new { Status = "Sent"});
         }
     }
 }

@@ -12,7 +12,11 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         {
             _transactionChecksService = transactionChecksService;
         }
+        public bool UserVerified()
+        {
 
+            return true;
+        }
         public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
         {
             if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
