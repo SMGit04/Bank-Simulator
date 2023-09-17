@@ -7,31 +7,41 @@ namespace Bank_Simulator.Services.Implementation.Transactions;
 
 public class NotificationService : INotificationService
 {
-
-    public Task SendNotification()
+    private readonly string FirebaseCredentialPath = @".\Keys\mobileposauth-firebase-adminsdk-b709f-bac8b34a0f.json";
+    public async Task SendNotification()
     {
 
-        _ = FirebaseApp.Create(new AppOptions()
+        try
         {
-            Credential = GoogleCredential.FromFile(@".\Keys\mobileposauth-firebase-adminsdk-b709f-bac8b34a0f.json"),
-        });
-
-        var registrationToken = "eQ0LJSq6TF--fmiLRZdFqD:APA91bGaf7ILKinWn2Uv5bsS9Ry841MUvZV5rMWoWR73S6r-wNFjOJKTxpBeZLsFZNm9c0cEgb-uh2X0qBx2xlKwu_SSQCHkn8sXW_wVa75esg2l5hUb-rWFHFD70kfG2rmUP1-XGMIJ";
-
-
-        var message = new Message()
-        {
-            Token = registrationToken,
-
-            Notification = new Notification()
+            _ = FirebaseApp.Create(new AppOptions()
             {
-                Title = "Transaction",
-                Body = "Dear Client, Are you making a Payment?",
-            }
-        };
+                Credential = GoogleCredential.FromFile(FirebaseCredentialPath),
+            });
 
-        string response = FirebaseMessaging.DefaultInstance.SendAsync(message).Result;
+            var registrationToken = "eQ0LJSq6TF--fmiLRZdFqD:APA91bGaf7ILKinWn2Uv5bsS9Ry841MUvZV5rMWoWR73S6r-wNFjOJKTxpBeZLsFZNm9c0cEgb-uh2X0qBx2xlKwu_SSQCHkn8sXW_wVa75esg2l5hUb-rWFHFD70kfG2rmUP1-XGMIJ";
 
-        return Task.CompletedTask;
+            // See documentation on defining a message payload.
+            var message = new Message()
+            {
+                Token = registrationToken,
+
+                Notification = new Notification()
+                {
+                    Title = "Transaction Request",
+                    Body = "Payment at Merchant Name",
+                },
+
+            };
+            Console.WriteLine("message read");
+
+            string response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
+
+            Console.WriteLine("Successfully sent message: " + response);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error sending notification: " + ex.Message);
+        }
+
     }
 }
