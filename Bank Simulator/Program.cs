@@ -5,12 +5,19 @@ using Bank_Simulator.Services.Implementation.Encryption;
 using Bank_Simulator.Services.Implementation.Transactions;
 using Bank_Simulator.Services.Interfaces.Encryption;
 using Bank_Simulator.Services.Interfaces.Transactions;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+FirebaseApp temp = FirebaseApp.Create(new AppOptions()
+{
+    Credential = GoogleCredential.FromFile(@".\Keys\mobileposauth-firebase-adminsdk-b709f-bac8b34a0f.json"),
+});
 
 builder.Services.AddTransient<ITransactionChecksService, TransactionChecksService>();
 builder.Services.AddTransient<ITransactionStatusService, TransactionStatusService>();
