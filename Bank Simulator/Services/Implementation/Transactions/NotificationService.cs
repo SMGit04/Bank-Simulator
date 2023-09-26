@@ -1,4 +1,5 @@
-﻿using Bank_Simulator.Services.Interfaces.Transactions;
+﻿using Bank_Simulator.Models;
+using Bank_Simulator.Services.Interfaces.Transactions;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
@@ -40,6 +41,7 @@ readonly List<string> merchantName = new List<string>
 
     public async Task SendNotification()
     {
+        TransactionDetailsModel transactionDetails = new TransactionDetailsModel();
 
         try
         {
@@ -53,8 +55,7 @@ readonly List<string> merchantName = new List<string>
                 Notification = new Notification()   
                 {
                     Title = "Transaction Request",
-                    Body = "Transaction at " + merchantName[RandomMerchantSelector(merchantName)],
-                },
+                    Body = "Transaction at " + transactionDetails.MerchantName                 },
             };
             string response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
 

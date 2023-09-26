@@ -23,7 +23,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         {
             DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
-            if (databaseModel != null && databaseModel.AccountBalance >= user.Amount)
+            if (databaseModel != null && databaseModel.AccountBalance >= user.TransactionAmount)
             {
                 DeductAmountFromUserAccount(user);
                 return true;
@@ -32,13 +32,13 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
 
         }
 
-        public int DeductAmountFromUserAccount([FromBody] TransactionDetailsModel user)
+        public double DeductAmountFromUserAccount([FromBody] TransactionDetailsModel user)
         {
             DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
             if (databaseModel != null)
             {
-                databaseModel.AccountBalance -= user.Amount;
+                databaseModel.AccountBalance -= user.TransactionAmount;
                 _context.SaveChanges();
                 return databaseModel.AccountBalance;
             }

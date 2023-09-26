@@ -15,7 +15,6 @@ namespace Bank_Simulator.Controllers
             _notificationService = notificationService;
         }
 
-
         [HttpPost("api/notification")]
         public IActionResult SendNotifications()
         {
