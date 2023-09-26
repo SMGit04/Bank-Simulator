@@ -14,19 +14,49 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         }
         public bool UserVerified()
         {
-
             return true;
         }
-        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
+        //public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
+        //{
+        //    if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
+        //    {
+        //        return new ResultModel("Approved");
+        //    }
+        //    else
+        //    {
+        //        return new ResultModel("Declined");
+        //    }
+
+        //}
+        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user, [FromBody] TransactionRequestResultModel authorization)
         {
-            if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
+            string result = "Declined";
+
+            switch (authorization.responseMessage)
             {
-                return new ResultModel("Approved");
+                case true:
+
+                    if (authorization.biometricAuthenticated == true)
+                    {
+                        if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
+                        {
+                            result = "Approved";
+                        }
+                        else
+                        {
+                            result = "Declined";
+                        }
+                    }
+                    else
+                    {
+                        return new ResultModel(result);
+                    }
+                    break;
+
+                case false:
+                    return new ResultModel(result);
             }
-            else
-            {
-                return new ResultModel("Declined");
-            }
+            return new ResultModel(result);
 
         }
     }
