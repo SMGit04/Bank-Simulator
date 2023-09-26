@@ -46,6 +46,8 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
                         {
                             result = "Declined";
                         }
+
+                        // SOne randomchanged@@@!!!
                     }
                     else
                     {
