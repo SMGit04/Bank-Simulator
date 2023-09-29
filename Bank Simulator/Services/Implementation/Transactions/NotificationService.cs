@@ -45,8 +45,8 @@ readonly List<string> merchantName = new List<string>
 
         try
         {
-            //var registrationToken = "eQ0LJSq6TF--fmiLRZdFqD:APA91bGaf7ILKinWn2Uv5bsS9Ry841MUvZV5rMWoWR73S6r-wNFjOJKTxpBeZLsFZNm9c0cEgb-uh2X0qBx2xlKwu_SSQCHkn8sXW_wVa75esg2l5hUb-rWFHFD70kfG2rmUP1-XGMIJ";
-            var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
+            var registrationToken = "e3NCy4RbQ4CgGBGXiLhOef:APA91bHB4GyXA5HbNiUG6-ERKmHMV5mUYPXF2J5ZA5jDy1NBq0g9sj106G-iXN0wNh5ZqCSjUk-62wGBRzPJoTSGkX1HOPvEz62koDzef0KY1StiE2nKlsDvOPmGsotdmmWl440aGep_";
+           // var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
 
             var message = new Message()
             {
@@ -55,7 +55,8 @@ readonly List<string> merchantName = new List<string>
                 Notification = new Notification()   
                 {
                     Title = "Transaction Request",
-                    Body = "Transaction at " + transactionDetails.MerchantName                 },
+                    Body = "Transaction at " + merchantName[RandomMerchantSelector(merchantName)] // transactionDetails.MerchantName
+                },
             };
             string response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
 

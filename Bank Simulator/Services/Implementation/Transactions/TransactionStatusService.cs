@@ -12,10 +12,6 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         {
             _transactionChecksService = transactionChecksService;
         }
-        public bool UserVerified()
-        {
-            return true;
-        }
         //public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
         //{
         //    if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
@@ -28,7 +24,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         //    }
 
         //}
-        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user, [FromBody] TransactionRequestResultModel authorization)
+        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization)
         {
             string result = "Declined";
 

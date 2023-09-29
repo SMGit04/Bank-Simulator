@@ -1,4 +1,5 @@
 using Bank_Simulator.Database;
+using Bank_Simulator.Models;
 using Bank_Simulator.Services.Implementation;
 using Bank_Simulator.Services.Implementation.Card_Validation;
 using Bank_Simulator.Services.Implementation.Encryption;
@@ -25,6 +26,7 @@ builder.Services.AddSingleton<IErrorCodesServices, ErrorCodesService>();
 builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
 builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddSingleton<TransactionRequestResultModel>();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
