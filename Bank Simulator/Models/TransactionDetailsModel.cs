@@ -15,5 +15,9 @@ namespace Bank_Simulator.Models
         public string MerchantName { get; set; }
         public string CVV { get; set; }
         public string PIN { get; set; }
+
+        // Gets the authorization results from the Client mobile device *
+        //public bool responseMessage { get; set; }
+        //public bool biometricAuthenticated { get; set; }
     }
 }

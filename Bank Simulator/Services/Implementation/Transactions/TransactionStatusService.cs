@@ -32,7 +32,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             {
                 case true:
 
-                    if (authorization.biometricAuthenticated == true)
+                    if (authorization.biometricAuthenticated.Equals(true))
                     {
                         if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
                         {
@@ -42,8 +42,6 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
                         {
                             result = "Declined";
                         }
-
-                        // SOne randomchanged@@@!!!
                     }
                     else
                     {
