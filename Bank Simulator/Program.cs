@@ -29,7 +29,7 @@ builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
 builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddSingleton<TransactionRequestResultModel>();
-builder.Services.AddTransient<ITransactionStatusOrchestration, TransactionStatusOrchestration>();
+builder.Services.AddTransient<ITransactionStatusOrchestration, TransactionRequestOrchestration>();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();

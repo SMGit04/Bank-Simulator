@@ -5,7 +5,7 @@ namespace Bank_Simulator.Orchestration.Interfaces
 {
     public interface ITransactionStatusOrchestration
     {
-        public ResultModel ApproveOrDeclineTransaction([FromBody] TransactionDetailsModel user,
-            [FromServices] TransactionRequestResultModel authorization);
+        public ResultModel ApproveOrDeclineTransaction([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization);
+        public Task SendNotificationToUserMobile();
     }
 }

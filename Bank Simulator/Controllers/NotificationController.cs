@@ -30,7 +30,8 @@ namespace Bank_Simulator.Controllers
 
         [Route("authorizationResponse")]
         [HttpGet()]
-        public IActionResult GetNotificationsAuthResponse([FromBody] TransactionDetailsModel user, [FromBody] TransactionRequestResultModel authorization) {
+        public IActionResult GetNotificationsAuthResponse([FromBody] TransactionDetailsModel user, [FromBody] TransactionRequestResultModel authorization)
+        {
 
             if (ModelState.IsValid)
             {
