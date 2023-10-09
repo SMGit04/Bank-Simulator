@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "390888698155",
+    "project_id": "mobileposauth",
+    "storage_bucket": "mobileposauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390888698155:android:0919a6048088859ec7956e",
+        "android_client_info": {
+          "package_name": "com.example.hypbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390888698155-vtj7kg58atflinj19lrohj6g9so0ke00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2K2BqajZIn0p-zspZ5h8OOrN4wuFYqzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390888698155-vtj7kg58atflinj19lrohj6g9so0ke00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,8 +16,9 @@ namespace Bank_Simulator.Orchestration.Implementation
             _notificationService = notificationService;
         }
 
-        public ResultModel ApproveOrDeclineTransaction([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization)
+        public ResultModel ApproveOrDeclineTransaction([FromServices] TransactionRequestResultModel authorization)
         {
+            TransactionDetailsModel user = new();
             if (authorization.responseMessage.Equals(false))
                 return new ResultModel("Declined");
             else

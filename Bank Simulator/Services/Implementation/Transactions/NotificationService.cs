@@ -46,7 +46,7 @@ readonly List<string> merchantName = new List<string>
         try
         {
             var registrationToken = "e3NCy4RbQ4CgGBGXiLhOef:APA91bHB4GyXA5HbNiUG6-ERKmHMV5mUYPXF2J5ZA5jDy1NBq0g9sj106G-iXN0wNh5ZqCSjUk-62wGBRzPJoTSGkX1HOPvEz62koDzef0KY1StiE2nKlsDvOPmGsotdmmWl440aGep_";
-           // var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
+         //   var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
 
             var message = new Message()
             {

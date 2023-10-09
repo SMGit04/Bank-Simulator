@@ -29,13 +29,13 @@ namespace Bank_Simulator.Controllers
         }
 
         [Route("authorizationResponse")]
-        [HttpGet()]
-        public IActionResult GetNotificationsAuthResponse([FromBody] TransactionDetailsModel user, [FromBody] TransactionRequestResultModel authorization)
+        [HttpPost()]
+        public IActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
         {
 
             if (ModelState.IsValid)
             {
-                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(user, authorization);
+                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
                 return Ok(orchestration);
             }
                 return BadRequest();
