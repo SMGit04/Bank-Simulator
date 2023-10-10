@@ -25,9 +25,9 @@ namespace Bank_Simulator.Orchestration.Implementation
                 return transactionStatusService.TransactionStatus(user, authorization);
         }
 
-        public Task SendNotificationToUserMobile()
+        public async Task SendNotificationToUserMobile()
         {
-            return _notificationService.SendNotification();
+             await _notificationService.SendNotification().ConfigureAwait(false);
         }
     }
 }

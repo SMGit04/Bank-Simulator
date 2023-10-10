@@ -25,8 +25,8 @@ namespace Bank_Simulator.Controllers
         {
             if (ModelState.IsValid)
             {
-                var orchestration = _transactionStatusOrchestration.SendNotificationToUserMobile();
-                return Ok(orchestration);
+                 _transactionStatusOrchestration.SendNotificationToUserMobile();
+                return Ok();
             }
                 return BadRequest();
         }
