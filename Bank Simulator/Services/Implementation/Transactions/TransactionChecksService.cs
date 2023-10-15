@@ -17,8 +17,6 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _context = dataContext;
         }
 
-        
-
         public bool UserHasEnoughMoney([FromBody] TransactionDetailsModel user)
         {
             DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);

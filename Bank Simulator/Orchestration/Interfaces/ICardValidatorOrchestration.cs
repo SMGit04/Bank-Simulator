@@ -6,6 +6,6 @@
 //    public interface ICardValidatorOrchestration
 //    {
 //        public CardResultModel CardNumberIsValid(string cardNumber);
-//       // public ResultModel TransactionIsValid([FromBody] TransactionDetailsModel user);
+//       // public ApprovalResponseModel TransactionIsValid([FromBody] TransactionDetailsModel user);
 //    }
 //}

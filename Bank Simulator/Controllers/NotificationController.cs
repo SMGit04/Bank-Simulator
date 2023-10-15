@@ -38,7 +38,7 @@ namespace Bank_Simulator.Controllers
                 var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
                 return Ok(orchestration);
             }
-                return BadRequest();
+            return BadRequest();
         }
     }
 }

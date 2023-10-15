@@ -2,6 +2,7 @@
 using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Bank_Simulator.Controllers
 {
@@ -21,12 +22,14 @@ namespace Bank_Simulator.Controllers
         [Route("ApproveOrDeclineTransaction")]
         [HttpPost()]
 
-        public ActionResult TransactionRequest([FromBody] TransactionDetailsModel _ )
+        public ActionResult TransactionRequest([FromBody] TransactionDetailsModel _, [FromServices] TransactionRequestResultModel authorization)
         {
             if (ModelState.IsValid)
             {
                  _transactionStatusOrchestration.SendNotificationToUserMobile();
-                return Ok();
+                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
+                return Ok(orchestration);
+
             }
                 return BadRequest();
         }

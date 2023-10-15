@@ -22,9 +22,9 @@
 //            return cardValidatorService.CardNumberIsValid(cardNumber);
 //        }
 
-//        public ResultModel TransactionIsValid([FromBody] TransactionDetailsModel user)
+//        public ApprovalResponseModel TransactionIsValid([FromBody] TransactionDetailsModel user)
 //        {
-//            return transactionStatusService.TransactionStatus(user);
+//            return transactionStatusService.TransactionApproval(user);
 //        }
 
 //    }

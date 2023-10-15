@@ -12,21 +12,10 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
         {
             _transactionChecksService = transactionChecksService;
         }
-        //public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user)
-        //{
-        //    if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
-        //    {
-        //        return new ResultModel("Approved");
-        //    }
-        //    else
-        //    {
-        //        return new ResultModel("Declined");
-        //    }
 
-        //}
-        public ResultModel TransactionStatus([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization)
+        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization)
         {
-            string result = "Declined";
+            bool result = false;
 
             switch (authorization.responseMessage)
             {
@@ -36,23 +25,23 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
                     {
                         if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
                         {
-                            result = "Approved";
+                            result = true; // "Approved";
                         }
                         else
                         {
-                            result = "Declined";
+                            result = false; // "Declined";
                         }
                     }
                     else
                     {
-                        return new ResultModel(result);
+                        return new ApprovalResponseModel(result);
                     }
                     break;
 
                 case false:
-                    return new ResultModel(result);
+                    return new ApprovalResponseModel(result);
             }
-            return new ResultModel(result);
+            return new ApprovalResponseModel(result);
 
         }
     }

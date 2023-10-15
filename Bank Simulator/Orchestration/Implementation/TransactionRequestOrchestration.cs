@@ -15,19 +15,19 @@ namespace Bank_Simulator.Orchestration.Implementation
             transactionStatusService = transactionStatus;
             _notificationService = notificationService;
         }
-
-        public ResultModel ApproveOrDeclineTransaction([FromServices] TransactionRequestResultModel authorization)
-        {
-            TransactionDetailsModel user = new();
-            if (authorization.responseMessage.Equals(false))
-                return new ResultModel("Declined");
-            else
-                return transactionStatusService.TransactionStatus(user, authorization);
-        }
-
         public async Task SendNotificationToUserMobile()
         {
              await _notificationService.SendNotification().ConfigureAwait(false);
         }
+
+        public ApprovalResponseModel ApproveOrDeclineTransaction([FromServices] TransactionRequestResultModel authorization)
+        {
+            TransactionDetailsModel user = new();
+            if (authorization.responseMessage.Equals(false))
+                return new ApprovalResponseModel(false);
+            else
+                return transactionStatusService.TransactionApproval(user, authorization);
+        }
+
     }
 }
