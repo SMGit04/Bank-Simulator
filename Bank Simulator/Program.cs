@@ -1,3 +1,4 @@
+using Bank_Simulator.Controllers;
 using Bank_Simulator.Database;
 using Bank_Simulator.Models;
 using Bank_Simulator.Orchestration.Implementation;
@@ -29,6 +30,8 @@ builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
 builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddSingleton<TransactionRequestResultModel>();
+builder.Services.AddScoped<NotificationController>();
+// builder.Services.AddSingleton<MessageQueueService, MessageQueueService>();
 builder.Services.AddTransient<ITransactionStatusOrchestration, TransactionRequestOrchestration>();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -46,7 +49,7 @@ var app = builder.Build();
     app.UseSwaggerUI();
 // }
 
- app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

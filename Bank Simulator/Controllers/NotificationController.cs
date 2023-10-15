@@ -14,7 +14,8 @@ namespace Bank_Simulator.Controllers
     {
         private readonly INotificationService _notificationService;
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
-        public NotificationController(INotificationService notificationService,ITransactionStatusOrchestration transactionStatusOrchestration)
+        private TaskCompletionSource<TransactionRequestResultModel> authorizationResponseTask = new TaskCompletionSource<TransactionRequestResultModel>();
+        public NotificationController(INotificationService notificationService, ITransactionStatusOrchestration transactionStatusOrchestration)
         {
             _notificationService = notificationService;
             _transactionStatusOrchestration = transactionStatusOrchestration;
@@ -25,20 +26,40 @@ namespace Bank_Simulator.Controllers
         public IActionResult SendNotifications()
         {
             _notificationService.SendNotification();
-            return Ok(new { Status = "Notification Sent"});
+            return Ok(new { Status = "Notification Sent" });
         }
 
         [Route("authorizationResponse")]
         [HttpPost()]
-        public IActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
+        public ActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
         {
-
             if (ModelState.IsValid)
             {
-                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
-                return Ok(orchestration);
+                try
+                {
+                    authorizationResponseTask.SetResult(authorization);
+                //     var result = await authorizationResponseTask.Task.ConfigureAwait(false);
+                    var result = WaitForAuthorizationResponseAsync().ConfigureAwait(false);
+
+                    return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
             }
             return BadRequest();
+        }
+
+
+        [Route("waitForAuthorizationResponse")]
+        [HttpGet] // Use HTTP GET for waiting
+        public  Task<TransactionRequestResultModel> WaitForAuthorizationResponseAsync()
+        {
+
+            var authorizationResponse =  authorizationResponseTask.Task;
+            return authorizationResponse;
+
         }
     }
 }
