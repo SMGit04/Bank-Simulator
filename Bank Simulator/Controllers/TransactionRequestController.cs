@@ -36,7 +36,7 @@ namespace Bank_Simulator.Controllers
 
                     // Wait for the authorization response
                   //  var authorizationResponse = await _notificationController.WaitForAuthorizationResponseAsync();
-                    var authorizationResponse = await _notificationController.GetNotificationsAuthResponse(authorization);
+                    var authorizationResponse = _notificationController.GetNotificationsAuthResponse(authorization);
 
                     if (authorizationResponse != null)
                     {

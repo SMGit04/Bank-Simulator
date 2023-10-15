@@ -31,7 +31,7 @@ namespace Bank_Simulator.Controllers
 
         [Route("authorizationResponse")]
         [HttpPost()]
-        public ActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
+        public  IActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
         {
             if (ModelState.IsValid)
             {
@@ -39,9 +39,9 @@ namespace Bank_Simulator.Controllers
                 {
                     authorizationResponseTask.SetResult(authorization);
                 //     var result = await authorizationResponseTask.Task.ConfigureAwait(false);
-                    var result = WaitForAuthorizationResponseAsync().ConfigureAwait(false);
+                    var result =  WaitForAuthorizationResponseAsync().ConfigureAwait(false);
 
-                    return Ok(result);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
