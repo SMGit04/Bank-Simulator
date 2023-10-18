@@ -20,10 +20,10 @@ namespace Bank_Simulator.Orchestration.Implementation
              await _notificationService.SendNotification().ConfigureAwait(false);
         }
 
-        public ApprovalResponseModel ApproveOrDeclineTransaction([FromServices] TransactionRequestResultModel authorization)
+        public ApprovalResponseModel ApproveOrDeclineTransaction( ApprovalRequestResultModel authorization)
         {
             TransactionDetailsModel user = new();
-            if (authorization.responseMessage.Equals(false))
+            if (authorization.isApproved.Equals(false))
                 return new ApprovalResponseModel(false);
             else
                 return transactionStatusService.TransactionApproval(user, authorization);

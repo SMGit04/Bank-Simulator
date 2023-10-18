@@ -2,7 +2,7 @@
 
 namespace Bank_Simulator.Models
 {
-    public class DatabaseModels
+    public class EntityDetails
     {
         public string Name { get; set; }
         public string Surname { get; set; }

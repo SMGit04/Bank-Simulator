@@ -13,35 +13,24 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _transactionChecksService = transactionChecksService;
         }
 
-        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization)
+        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] ApprovalRequestResultModel authorization)
         {
-            bool result = false;
 
-            switch (authorization.responseMessage)
+            switch (authorization.isApproved)
             {
                 case true:
-
-                    if (authorization.biometricAuthenticated.Equals(true))
+                    if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
                     {
-                        if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))
-                        {
-                            result = true; // "Approved";
-                        }
-                        else
-                        {
-                            result = false; // "Declined";
-                        }
+                        return new ApprovalResponseModel(true); // "Approved";
                     }
                     else
                     {
-                        return new ApprovalResponseModel(result);
+                        return new ApprovalResponseModel(false); // "Declined";
                     }
-                    break;
 
                 case false:
-                    return new ApprovalResponseModel(result);
+                    return new ApprovalResponseModel(false);
             }
-            return new ApprovalResponseModel(result);
 
         }
     }

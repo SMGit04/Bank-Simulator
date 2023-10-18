@@ -6,7 +6,7 @@ namespace Bank_Simulator.Database
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        public DbSet<DatabaseModels> DatabaseModels => Set<DatabaseModels>();
+        public DbSet<EntityDetails> DatabaseModels => Set<EntityDetails>();
 
     }
 }

@@ -3,14 +3,15 @@ using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Implementation.Transactions;
 using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Bank_Simulator.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-
     public class TransactionRequestController : ControllerBase
     {
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
@@ -20,33 +21,37 @@ namespace Bank_Simulator.Controllers
         {
             _transactionStatusOrchestration = transactionStatusOrchestration;
             _notificationController = notificationController;
-
         }
 
         [Route("ApproveOrDeclineTransaction")]
         [HttpPost()]
-        public async Task<ActionResult> TransactionRequest([FromBody] TransactionDetailsModel transaction, [FromServices] TransactionRequestResultModel authorization)
+        public async Task<ActionResult> TransactionRequest([FromBody] ApprovalRequestResultModel authorization)
         {
-            // Task<ActionResult<TransactionRequestResultModel>>
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _ = _transactionStatusOrchestration.SendNotificationToUserMobile();
+                    var cancellationTokenSource = new CancellationTokenSource();
+                    var cancellationToken = cancellationTokenSource.Token;
 
-                    // Wait for the authorization response
-                  //  var authorizationResponse = await _notificationController.WaitForAuthorizationResponseAsync();
-                    var authorizationResponse = _notificationController.GetNotificationsAuthResponse(authorization);
+                    Task.Run(() =>
+                    {
+                        var blocker = authorization.isBlocked;
+                        while (blocker)
+                        {
+                            if (cancellationToken.IsCancellationRequested)
+                            {
+                                break; // Exit the loop if cancellation is requested.
+                            }
+                        }
+                    });
 
-                    if (authorizationResponse != null)
-                    {
-                        var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorizationResponse);
-                        return Ok(orchestration);
-                    }
-                    else
-                    {
-                        return BadRequest("Authorization response is null.");
-                    }
+                    // Now that isBlocked is false, execute the code inside the loop.
+                    cancellationTokenSource.Cancel(); // Cancel the loop
+
+                    var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
+
+                    return Ok(orchestration);
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +60,5 @@ namespace Bank_Simulator.Controllers
             }
             return BadRequest();
         }
-
-
     }
 }

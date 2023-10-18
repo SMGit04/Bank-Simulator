@@ -5,6 +5,6 @@ namespace Bank_Simulator.Services.Interfaces.Transactions
 {
     public interface ITransactionStatusService
     {
-        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] TransactionRequestResultModel authorization);
+        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] ApprovalRequestResultModel authorization);
     }
 }

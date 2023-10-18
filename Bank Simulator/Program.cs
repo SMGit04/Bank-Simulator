@@ -29,7 +29,7 @@ builder.Services.AddSingleton<IErrorCodesServices, ErrorCodesService>();
 builder.Services.AddSingleton<IEncrptionService, EncrptionService>();
 builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
-builder.Services.AddSingleton<TransactionRequestResultModel>();
+builder.Services.AddSingleton<ApprovalRequestResultModel>();
 builder.Services.AddScoped<NotificationController>();
 // builder.Services.AddSingleton<MessageQueueService, MessageQueueService>();
 builder.Services.AddTransient<ITransactionStatusOrchestration, TransactionRequestOrchestration>();

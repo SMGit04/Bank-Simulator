@@ -19,7 +19,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
 
         public bool UserHasEnoughMoney([FromBody] TransactionDetailsModel user)
         {
-            DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
+            EntityDetails? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
             if (databaseModel != null && databaseModel.AccountBalance >= user.TransactionAmount)
             {
@@ -32,7 +32,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
 
         public double DeductAmountFromUserAccount([FromBody] TransactionDetailsModel user)
         {
-            DatabaseModels? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
+            EntityDetails? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
             if (databaseModel != null)
             {
@@ -49,7 +49,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             {
                 // string clearTextCvv = _rsaHelper.Decrypt(user.CVV);
                 string clearTextCvv = user.CVV;
-                DatabaseModels ? databaseModelId = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
+                EntityDetails ? databaseModelId = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
                 return databaseModelId != null && clearTextCvv.Equals(databaseModelId.CVV, StringComparison.Ordinal);
             }

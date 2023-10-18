@@ -14,7 +14,7 @@ namespace Bank_Simulator.Controllers
     {
         private readonly INotificationService _notificationService;
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
-        private TaskCompletionSource<TransactionRequestResultModel> authorizationResponseTask = new TaskCompletionSource<TransactionRequestResultModel>();
+        private TaskCompletionSource<ApprovalRequestResultModel> authorizationResponseTask = new TaskCompletionSource<ApprovalRequestResultModel>();
         public NotificationController(INotificationService notificationService, ITransactionStatusOrchestration transactionStatusOrchestration)
         {
             _notificationService = notificationService;
@@ -25,41 +25,8 @@ namespace Bank_Simulator.Controllers
         [HttpPost()]
         public IActionResult SendNotifications()
         {
-            _notificationService.SendNotification();
+            _ = _transactionStatusOrchestration.SendNotificationToUserMobile();
             return Ok(new { Status = "Notification Sent" });
-        }
-
-        [Route("authorizationResponse")]
-        [HttpPost()]
-        public  IActionResult GetNotificationsAuthResponse([FromBody] TransactionRequestResultModel authorization)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    authorizationResponseTask.SetResult(authorization);
-                //     var result = await authorizationResponseTask.Task.ConfigureAwait(false);
-                    var result =  WaitForAuthorizationResponseAsync().ConfigureAwait(false);
-
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occurred: {ex.Message}");
-                }
-            }
-            return BadRequest();
-        }
-
-
-        [Route("waitForAuthorizationResponse")]
-        [HttpGet] // Use HTTP GET for waiting
-        public  Task<TransactionRequestResultModel> WaitForAuthorizationResponseAsync()
-        {
-
-            var authorizationResponse =  authorizationResponseTask.Task;
-            return authorizationResponse;
-
         }
     }
 }

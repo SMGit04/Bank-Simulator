@@ -45,9 +45,15 @@ readonly List<string> merchantName = new List<string>
 
         try
         {
-         //   var registrationToken = "e3NCy4RbQ4CgGBGXiLhOef:APA91bHB4GyXA5HbNiUG6-ERKmHMV5mUYPXF2J5ZA5jDy1NBq0g9sj106G-iXN0wNh5ZqCSjUk-62wGBRzPJoTSGkX1HOPvEz62koDzef0KY1StiE2nKlsDvOPmGsotdmmWl440aGep_";
-            var registrationToken = "cvKLfIfoo3tCQ8sI1MwpEi:APA91bELgNJB4ajoCFGsFVLtq89y_CJPcFa9Tt4JQaxlLOBJwcY8YUpz_ajTFtRCZS6t6-spAsD3Uiyy323HVwuTlNlx24sgm980bKYaCVdnCIp5Xi5Bs3t-S5PbtLmci7LuK-Yft_hY";
+            // Physical device
+           //  var registrationToken = "e3NCy4RbQ4CgGBGXiLhOef:APA91bHB4GyXA5HbNiUG6-ERKmHMV5mUYPXF2J5ZA5jDy1NBq0g9sj106G-iXN0wNh5ZqCSjUk-62wGBRzPJoTSGkX1HOPvEz62koDzef0KY1StiE2nKlsDvOPmGsotdmmWl440aGep_";
 
+            // HP 
+            // var registrationToken = "cvKLfIfoo3tCQ8sI1MwpEi:APA91bELgNJB4ajoCFGsFVLtq89y_CJPcFa9Tt4JQaxlLOBJwcY8YUpz_ajTFtRCZS6t6-spAsD3Uiyy323HVwuTlNlx24sgm980bKYaCVdnCIp5Xi5Bs3t-S5PbtLmci7LuK-Yft_hY";
+
+            // DELL
+            var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
+           
             var message = new Message()
             {
                 Token = registrationToken,
@@ -70,7 +76,7 @@ readonly List<string> merchantName = new List<string>
 
     public static int RandomMerchantSelector(List<string> merchantName)
     {
-        Random rand = new Random();
+        Random rand = new();
         return rand.Next(0, merchantName.Count);
     }
 }
