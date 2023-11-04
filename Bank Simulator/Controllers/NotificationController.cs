@@ -2,10 +2,7 @@
 using Bank_Simulator.Models;
 using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Interfaces.Transactions;
-using FirebaseAdmin;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Bank_Simulator.Controllers
 {
@@ -14,7 +11,7 @@ namespace Bank_Simulator.Controllers
     {
         private readonly INotificationService _notificationService;
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
-        private TaskCompletionSource<ApprovalRequestResultModel> authorizationResponseTask = new TaskCompletionSource<ApprovalRequestResultModel>();
+        private TaskCompletionSource<ApprovalRequestResultModel> authorizationResponseTask = new();
         public NotificationController(INotificationService notificationService, ITransactionStatusOrchestration transactionStatusOrchestration)
         {
             _notificationService = notificationService;

@@ -11,7 +11,6 @@ using Bank_Simulator.Services.Interfaces.Encryption;
 using Bank_Simulator.Services.Interfaces.Transactions;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +53,5 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-// app.MapHub<NotificationService>("/notification");
 
 app.Run();

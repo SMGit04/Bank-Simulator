@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Bank_Simulator.Services.Interfaces.Transactions
+namespace Bank_Simulator.Services.Implementation.Transactions
 {
     public class TransactionService
     {

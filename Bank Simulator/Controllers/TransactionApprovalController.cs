@@ -1,7 +1,6 @@
 ﻿using Bank_Simulator.Models;
 using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Implementation.Transactions;
-using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Concurrent;
@@ -16,74 +15,49 @@ namespace Bank_Simulator.Controllers
     [ApiController]
     public class TransactionRequestController : ControllerBase
     {
-        //private readonly ConcurrentDictionary<string, TaskCompletionSource<bool>> _pendingAuths = new ConcurrentDictionary<string, TaskCompletionSource<bool>>();
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
-        private readonly NotificationController _notificationController;
         private readonly TransactionService _transactionService;
 
-        public TransactionRequestController(ITransactionStatusOrchestration transactionStatusOrchestration, NotificationController notificationController, TransactionService transactionService)
+        public TransactionRequestController(ITransactionStatusOrchestration transactionStatusOrchestration, TransactionService transactionService)
         {
             _transactionStatusOrchestration = transactionStatusOrchestration;
-            _notificationController = notificationController;
             _transactionService = transactionService;
         }
 
-        [Route("dataFromUser")]
+        [Route("entityTransactionData")]
         [HttpPost()]
         public async Task<IActionResult> DataFromUserEndpoint(EntityDetails entityDetails)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            _transactionService.PendingAuths.TryAdd(entityDetails.IDNumber, tcs);
+            var taskCompletionSource = new TaskCompletionSource<bool>();
+            _transactionService.PendingAuths.TryAdd(entityDetails.IDNumber, taskCompletionSource);
 
-            // Wait for the user authentication or timeout (30 seconds)
-            if (await Task.WhenAny(tcs.Task, Task.Delay(60000)) == tcs.Task && tcs.Task.Result)
+            if (ModelState.IsValid)
             {
-                _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
-                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(entityDetails, tcs.Task.Result);
+                // Wait for the user authentication or timeout after 30 seconds
+                if (await Task.WhenAny(taskCompletionSource.Task, Task.Delay(30000)) == taskCompletionSource.Task && taskCompletionSource.Task.Result)
+                {
+                    _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
+                    var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(entityDetails, taskCompletionSource.Task.Result);
 
-                return Ok(orchestration);
+                    return Ok(orchestration);
+                }
             }
-            else
-            {
-                // Timeout or declined
-                _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
-                return BadRequest("Transaction declined or timeout");
-            }
+            _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
+            return BadRequest("Transaction declined or timeout");
+
         }
-        [Route("ApproveOrDeclineTransaction")]  //  userResponseAuth
+        [Route("ApproveOrDeclineTransaction")] 
         [HttpPost()]
         public IActionResult TransactionRequest([FromBody] ApprovalRequestResultModel authorization)
         {
-            if (_transactionService.PendingAuths.TryGetValue(authorization.userID, out var tcs))
+            if (_transactionService.PendingAuths.TryGetValue(authorization.userID, out var taskCompletionSource))
             {
-                tcs.SetResult(authorization.isApproved);
+                taskCompletionSource.SetResult(authorization.isApproved);
+                return Ok();
             }
 
-            return Ok();
+            return BadRequest();
             
         }
     }
 }
-
-
-/*
-             if (ModelState.IsValid)
-            {
-                try
-                {
-                    if (_pendingAuths.TryGetValue(tempId, out var taskCompletionSource))
-                    {
-                        taskCompletionSource.SetResult(authorization.isApproved);
-                    }
-
-                    var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
-
-                    return Ok(orchestration);
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, $"An error occurred: {ex.Message}");
-                }
-            }
-            return BadRequest();
-*/
