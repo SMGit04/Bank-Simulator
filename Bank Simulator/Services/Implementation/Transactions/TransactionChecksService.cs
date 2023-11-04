@@ -17,7 +17,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _context = dataContext;
         }
 
-        public bool UserHasEnoughMoney([FromBody] TransactionDetailsModel user)
+        public bool UserHasEnoughMoney([FromBody] EntityDetails user)
         {
             EntityDetails? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
@@ -30,7 +30,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
 
         }
 
-        public double DeductAmountFromUserAccount([FromBody] TransactionDetailsModel user)
+        public double DeductAmountFromUserAccount([FromBody] EntityDetails user)
         {
             EntityDetails? databaseModel = _context.DatabaseModels.FirstOrDefault(id => id.IDNumber == user.IDNumber);
 
@@ -43,7 +43,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             return -1;
         }
 
-        public bool ValidateCvvNumber([FromBody] TransactionDetailsModel user)
+        public bool ValidateCvvNumber([FromBody] EntityDetails user)
         {
             try
             {

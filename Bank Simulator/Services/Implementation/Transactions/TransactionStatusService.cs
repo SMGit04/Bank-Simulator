@@ -13,10 +13,10 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _transactionChecksService = transactionChecksService;
         }
 
-        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, [FromServices] ApprovalRequestResultModel authorization)
+        public ApprovalResponseModel TransactionApproval([FromBody] EntityDetails user, bool isApproved)
         {
 
-            switch (authorization.isApproved)
+            switch (isApproved)
             {
                 case true:
                     if (_transactionChecksService.UserHasEnoughMoney(user) && _transactionChecksService.ValidateCvvNumber(user))

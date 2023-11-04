@@ -4,6 +4,8 @@ using Bank_Simulator.Services.Implementation.Transactions;
 using Bank_Simulator.Services.Interfaces.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Concurrent;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,40 +16,65 @@ namespace Bank_Simulator.Controllers
     [ApiController]
     public class TransactionRequestController : ControllerBase
     {
+        //private readonly ConcurrentDictionary<string, TaskCompletionSource<bool>> _pendingAuths = new ConcurrentDictionary<string, TaskCompletionSource<bool>>();
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
         private readonly NotificationController _notificationController;
+        private readonly TransactionService _transactionService;
 
-        public TransactionRequestController(ITransactionStatusOrchestration transactionStatusOrchestration, NotificationController notificationController)
+        public TransactionRequestController(ITransactionStatusOrchestration transactionStatusOrchestration, NotificationController notificationController, TransactionService transactionService)
         {
             _transactionStatusOrchestration = transactionStatusOrchestration;
             _notificationController = notificationController;
+            _transactionService = transactionService;
         }
 
-        [Route("ApproveOrDeclineTransaction")]
+        [Route("dataFromUser")]
         [HttpPost()]
-        public async Task<ActionResult> TransactionRequest([FromBody] ApprovalRequestResultModel authorization)
+        public async Task<IActionResult> DataFromUserEndpoint(EntityDetails entityDetails)
         {
-            if (ModelState.IsValid)
+            var tcs = new TaskCompletionSource<bool>();
+            _transactionService.PendingAuths.TryAdd(entityDetails.IDNumber, tcs);
+
+            // Wait for the user authentication or timeout (30 seconds)
+            if (await Task.WhenAny(tcs.Task, Task.Delay(60000)) == tcs.Task && tcs.Task.Result)
+            {
+                _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
+                var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(entityDetails, tcs.Task.Result);
+
+                return Ok(orchestration);
+            }
+            else
+            {
+                // Timeout or declined
+                _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
+                return BadRequest("Transaction declined or timeout");
+            }
+        }
+        [Route("ApproveOrDeclineTransaction")]  //  userResponseAuth
+        [HttpPost()]
+        public IActionResult TransactionRequest([FromBody] ApprovalRequestResultModel authorization)
+        {
+            if (_transactionService.PendingAuths.TryGetValue(authorization.userID, out var tcs))
+            {
+                tcs.SetResult(authorization.isApproved);
+            }
+
+            return Ok();
+            
+        }
+    }
+}
+
+
+/*
+             if (ModelState.IsValid)
             {
                 try
                 {
-                    var cancellationTokenSource = new CancellationTokenSource();
-                    var cancellationToken = cancellationTokenSource.Token;
-
-                    Task.Run(() =>
+                    if (_pendingAuths.TryGetValue(tempId, out var taskCompletionSource))
                     {
-                        var blocker = authorization.isBlocked;
-                        while (blocker)
-                        {
-                            if (cancellationToken.IsCancellationRequested)
-                            {
-                                break; // Exit the loop if cancellation is requested.
-                            }
-                        }
-                    });
-
-                    // Now that isBlocked is false, execute the code inside the loop.
-                    cancellationTokenSource.Cancel(); // Cancel the loop
+                        taskCompletionSource.SetResult(authorization.isApproved);
+                    }
 
                     var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(authorization);
 
@@ -59,6 +86,4 @@ namespace Bank_Simulator.Controllers
                 }
             }
             return BadRequest();
-        }
-    }
-}
+*/

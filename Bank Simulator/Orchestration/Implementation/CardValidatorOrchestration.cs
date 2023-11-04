@@ -22,7 +22,7 @@
 //            return cardValidatorService.CardNumberIsValid(cardNumber);
 //        }
 
-//        public ApprovalResponseModel TransactionIsValid([FromBody] TransactionDetailsModel user)
+//        public ApprovalResponseModel TransactionIsValid([FromBody] EntityDetails user)
 //        {
 //            return transactionStatusService.TransactionApproval(user);
 //        }

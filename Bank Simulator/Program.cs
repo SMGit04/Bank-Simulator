@@ -31,7 +31,7 @@ builder.Services.AddSingleton<IEncryptionKeyReaderService, EncryptionKeyReaderSe
 builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddSingleton<ApprovalRequestResultModel>();
 builder.Services.AddScoped<NotificationController>();
-// builder.Services.AddSingleton<MessageQueueService, MessageQueueService>();
+builder.Services.AddSingleton<TransactionService>();
 builder.Services.AddTransient<ITransactionStatusOrchestration, TransactionRequestOrchestration>();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 

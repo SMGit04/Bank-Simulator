@@ -41,7 +41,7 @@ readonly List<string> merchantName = new List<string>
 
     public async Task SendNotification()
     {
-        TransactionDetailsModel transactionDetails = new TransactionDetailsModel();
+        EntityDetails transactionDetails = new EntityDetails();
 
         try
         {
@@ -52,7 +52,7 @@ readonly List<string> merchantName = new List<string>
             // var registrationToken = "cvKLfIfoo3tCQ8sI1MwpEi:APA91bELgNJB4ajoCFGsFVLtq89y_CJPcFa9Tt4JQaxlLOBJwcY8YUpz_ajTFtRCZS6t6-spAsD3Uiyy323HVwuTlNlx24sgm980bKYaCVdnCIp5Xi5Bs3t-S5PbtLmci7LuK-Yft_hY";
 
             // DELL
-            var registrationToken = "eebK8tXWRLe0L897TeqeGr:APA91bFf48MRSR9wI1DMBtQ8z9eddX2r-CLLI1cMT1gP61GXxEkxYv1Vnbv8y4JxbZUnKel8AYKXK-YgJlUhDAqDccyxBsu3AI_M-wdh8xhcG5SIuWBli52XQGS0GXbeu6sqAhACpAV9";
+            var registrationToken = "cnhJo0J9SJa5g5gTUtxK0J:APA91bHjKsksHlziM0idr7erMzuJfgMTnCmUrfhLxlRbOtnvpXKItSdiEumxZMjzg8fGo_Zduf9vmFMCbPRejD6XfsA2UU08eOh65vx5_Hq723lczkIV_8N_Bv9TRkAYBMkNd8Kf6Cxf";
            
             var message = new Message()
             {

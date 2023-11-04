@@ -2,8 +2,9 @@
 
 namespace Bank_Simulator.Models
 {
+
     public class EntityDetails
-    {
+    {       
         public string Name { get; set; }
         public string Surname { get; set; }
 
@@ -13,8 +14,8 @@ namespace Bank_Simulator.Models
         public string AccountNumber { get; set; }
         public string ExpiryDate { get; set; }
         public double AccountBalance { get; set; }
+        public double TransactionAmount { get; set; }
         public string CVV { get; set; }
         public string PIN { get; set; }
-
     }
 }
