@@ -26,7 +26,7 @@ namespace Bank_Simulator.Controllers
 
         [Route("entityTransactionData")]
         [HttpPost()]
-        public async Task<IActionResult> DataFromUserEndpoint(EntityDetails entityDetails)
+        public async Task<IActionResult> DataFromUserEndpoint(TransactionDetailsModel entityDetails)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
             _transactionService.PendingAuths.TryAdd(entityDetails.IDNumber, taskCompletionSource);

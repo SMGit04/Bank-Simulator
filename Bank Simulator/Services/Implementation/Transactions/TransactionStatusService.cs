@@ -13,7 +13,7 @@ namespace Bank_Simulator.Services.Implementation.Card_Validation
             _transactionChecksService = transactionChecksService;
         }
 
-        public ApprovalResponseModel TransactionApproval([FromBody] EntityDetails user, bool isApproved)
+        public ApprovalResponseModel TransactionApproval([FromBody] TransactionDetailsModel user, bool isApproved)
         {
 
             switch (isApproved)

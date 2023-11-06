@@ -9,12 +9,9 @@ namespace Bank_Simulator.Controllers
     [Route("api/[controller]")]
     public class NotificationController : ControllerBase
     {
-        private readonly INotificationService _notificationService;
         private readonly ITransactionStatusOrchestration _transactionStatusOrchestration;
-        private TaskCompletionSource<ApprovalRequestResultModel> authorizationResponseTask = new();
-        public NotificationController(INotificationService notificationService, ITransactionStatusOrchestration transactionStatusOrchestration)
+        public NotificationController(ITransactionStatusOrchestration transactionStatusOrchestration)
         {
-            _notificationService = notificationService;
             _transactionStatusOrchestration = transactionStatusOrchestration;
         }
 
