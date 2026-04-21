@@ -48,7 +48,7 @@ var app = builder.Build();
     app.UseSwaggerUI();
 // }
 
-// app.UseHttpsRedirection();
+ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

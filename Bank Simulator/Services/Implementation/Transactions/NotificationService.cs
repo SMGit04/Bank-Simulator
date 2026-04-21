@@ -1,7 +1,6 @@
 ﻿using Bank_Simulator.Services.Interfaces.Transactions;
 using FirebaseAdmin.Messaging;
 using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Crypto.Prng;
 
 namespace Bank_Simulator.Services.Implementation.Transactions;
 
@@ -19,7 +18,7 @@ public class NotificationService : INotificationService
     {
         try
         {
-            var registrationToken = "DELL";
+            var registrationToken = "PhysicalDevice";
            
             var message = new Message()
             {

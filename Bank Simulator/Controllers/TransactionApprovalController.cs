@@ -2,11 +2,6 @@
 using Bank_Simulator.Orchestration.Interfaces;
 using Bank_Simulator.Services.Implementation.Transactions;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Concurrent;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Bank_Simulator.Controllers
 {
@@ -33,11 +28,11 @@ namespace Bank_Simulator.Controllers
 
             if (ModelState.IsValid)
             {
-                // Wait for the user authentication or timeout after 30 seconds
-                if (await Task.WhenAny(taskCompletionSource.Task, Task.Delay(30000)) == taskCompletionSource.Task && taskCompletionSource.Task.Result)
+                // Wait for the user authentication or timeout after 60 seconds
+                if (await Task.WhenAny(taskCompletionSource.Task, Task.Delay(6000000)) == taskCompletionSource.Task && taskCompletionSource.Task.Result)
                 {
                     _transactionService.PendingAuths.TryRemove(entityDetails.IDNumber, out _);
-                    var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(entityDetails, taskCompletionSource.Task.Result);
+                    var orchestration = _transactionStatusOrchestration.ApproveOrDeclineTransaction(entityDetails, taskCompletionSource.Task.Result); // taskCompletionSource.Task.Result
 
                     return Ok(orchestration);
                 }
